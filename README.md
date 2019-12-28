@@ -1,17 +1,15 @@
 ﻿# [uCOSIII](https://github.com/OS-Q/uCOSIII) 
 
-[![sites](OS-Q/OS-Q.png)](http://www.OS-Q.com)
+[![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 
-#### 关于系统架构：[OS-Q](https://github.com/OS-Q/OS-Q)
+#### 关于系统架构：[OS-Q](https://github.com/OS-Q)
+#### 归属实时系统：[RTQ](https://github.com/OS-Q/RTQ)
 
-## [包含资源](OS-Q/) 
+[uCOSIII](https://github.com/OS-Q/uCOSIII) 是RTOS中常用的一种，具有大量的开源工程和学习历程。
 
-#### [uCOSIII](uCOSIII/)
+### [收录资源](https://github.com/OS-Q/W25) 
 
-系统参考资料
+* [文档](docs/)
+* [资源](src/)
 
----
-
-####  © qitas@qitas.cn
-###  [OS-Q redefined Operation System](http://www.OS-Q.com)
-####  @ 2018-12-22
+### [OS-Q = Open Solutions | Open Source |  Operating System ](http://www.OS-Q.com)
