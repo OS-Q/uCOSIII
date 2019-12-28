@@ -1,0 +1,8 @@
+*.lst
+*.bin
+*.uvop*
+*.uvgui*
+RTE/
+obj/
+list/
+DebugConfig/
