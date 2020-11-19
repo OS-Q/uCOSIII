@@ -1,49 +1,65 @@
-#include "stm32f10x.h"                  // Device header
-#include "uart.h"
+/******************************************************************************
+****版本：
+****平台：
+****日期：2020-11-19
+****作者：Qitas
+****版权：OS-Q.COM
+*******************************************************************************/
+
+#include "stm32f10x.h"
 #include "includes.h"
+#include "uart.h"
 #include "task.h"
 #include "LED.h"
 #include "delay.h"
 
-void BSP_init(void);
- 
+
+/******************************************************************************
+**函数信息 ：
+**功能描述 ：
+**输入参数 ：无
+**输出参数 ：无
+*******************************************************************************/
+void BSP_init(void)
+{
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	Uart3_init();
+	delay_init();
+	LED_init();
+}
+
+/******************************************************************************
+**函数信息 ：
+**功能描述 ：
+**输入参数 ：无
+**输出参数 ：无
+*******************************************************************************/
 int main()
-{  
+{
 	OS_ERR err;
 	CPU_SR_ALLOC();
 	BSP_init();
-	
-	OSInit(&err); 
+	OSInit(&err);
 	OS_CRITICAL_ENTER();
-	OSTaskCreate((OS_TCB 	* )&StartTaskTCB,		//������ƿ�
-				 (CPU_CHAR	* )"start task", 		//��������
-                 (OS_TASK_PTR )start_task, 			//������
-                 (void		* )0,					//���ݸ��������Ĳ���
-                 (OS_PRIO	  )START_TASK_PRIO,     //�������ȼ�
-                 (CPU_STK   * )&START_TASK_STK[0],	//�����ջ����ַ
-                 (CPU_STK_SIZE)START_STK_SIZE/10,	//�����ջ�����λ
-                 (CPU_STK_SIZE)START_STK_SIZE,		//�����ջ��С
-                 (OS_MSG_QTY  )0,					//�����ڲ���Ϣ�����ܹ����յ������Ϣ��Ŀ,Ϊ0ʱ��ֹ������Ϣ
-                 (OS_TICK	  )0,					//��ʹ��ʱ��Ƭ��תʱ��ʱ��Ƭ���ȣ�Ϊ0ʱΪĬ�ϳ��ȣ�
-                 (void   	* )0,					//�û�����Ĵ洢��
-                 (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR, //����ѡ��
-                 (OS_ERR 	* )&err);				//��Ÿú�������ʱ�ķ���ֵ
+	OSTaskCreate((OS_TCB 	* )&StartTaskTCB,		//任务控制块
+				 (CPU_CHAR	* )"start task", 		//任务名字
+                 (OS_TASK_PTR )start_task, 			//任务函数
+                 (void		* )0,					//传递给任务函数的参数
+                 (OS_PRIO	  )START_TASK_PRIO,     //任务优先级
+                 (CPU_STK   * )&START_TASK_STK[0],	//任务堆栈基地址
+                 (CPU_STK_SIZE)START_STK_SIZE/10,	//任务堆栈深度限位
+                 (CPU_STK_SIZE)START_STK_SIZE,		//任务堆栈大小
+                 (OS_MSG_QTY  )0,					//任务内部消息队列能够接收的最大消息数目,为0时禁止接收消息
+                 (OS_TICK	  )0,					//当使能时间片轮转时的时间片长度，为0时为默认长度，
+                 (void   	* )0,					//用户补充的存储区
+                 (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR, //任务选项
+                 (OS_ERR 	* )&err);				//存放该函数错误时的返回值
 	OS_CRITICAL_EXIT();
 	OSStart(&err);
-	
 	while(1){}
 }
 
 
+/*--------------------------(C) COPYRIGHT 2020 OS-Q.COM -----------------------*/
 
-void BSP_init(void)
-{
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); 
-	Uart3_init();
-	delay_init();  
-	LED_init();
-}
-
-
-//	
 
